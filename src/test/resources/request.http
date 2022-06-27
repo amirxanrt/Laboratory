@@ -1,0 +1,20 @@
+
+### users.getAll
+GET http://localhost:8080/users.getAll
+X-login: vasya
+X-password: secret
+
+### users.getById
+GET http://localhost:8080/users.getById?id=2
+X-login: vasya
+X-password: secret
+
+###
+GET http://localhost:8080/users.create?name=Amir
+X-login: vasya
+X-password: secret
+
+###
+GET http://localhost:8080/users.deleteById?id=1
+X-login: vasya
+X-password: secret
