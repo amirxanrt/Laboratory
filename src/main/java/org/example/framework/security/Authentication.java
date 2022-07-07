@@ -1,4 +1,4 @@
-package org.example.security;
+package org.example.framework.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;

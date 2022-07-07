@@ -1,12 +1,13 @@
-package org.example.manager;
+package org.example.app.manager;
 
-import org.example.dto.UserDTO;
-import org.example.exception.UserNotFoundException;
+import org.example.app.dto.UserDTO;
+import org.example.app.exception.UserNotFoundException;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component
 public class UserManager {
 
     private long nextId = 1;
@@ -24,7 +25,7 @@ public class UserManager {
         throw new UserNotFoundException();
     }
 
-    public UserDTO create(final String name) {
+    public UserDTO create(String name) {
         final UserDTO user = new UserDTO(nextId++, name);
         users.add(user);
         return user;

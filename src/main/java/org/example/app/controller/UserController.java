@@ -1,23 +1,24 @@
-package org.example.controller;
+package org.example.app.controller;
 
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.dto.UserDTO;
-import org.example.manager.UserManager;
+import lombok.RequiredArgsConstructor;
+import org.example.app.dto.UserDTO;
+import org.example.app.manager.UserManager;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.util.List;
 
+@Controller
+@RequiredArgsConstructor
 public class UserController {
     private final UserManager manager;
-    private final Gson gson;
+    Gson gson = new Gson();
+    String login = "petya";
 
-    public UserController(UserManager manager, Gson gson) {
-        this.manager = manager;
-        this.gson = gson;
-    }
 
     public void getAll(final HttpServletRequest req, final HttpServletResponse res) throws ServletException, IOException {
         List<UserDTO> responseDTO = manager.getAll();
@@ -25,8 +26,7 @@ public class UserController {
     }
 
     public void getById(final HttpServletRequest req, final HttpServletResponse res) throws ServletException, IOException {
-        final long id = Long.parseLong(req.getParameter("id"));
-        UserDTO responseDTO = manager.getById(id);
+        UserDTO responseDTO = manager.getById(Integer.parseInt(req.getParameter("id")));
         res.getWriter().write(gson.toJson(responseDTO));
     }
 

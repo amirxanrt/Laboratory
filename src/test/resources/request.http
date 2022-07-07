@@ -5,7 +5,7 @@ X-login: vasya
 X-password: secret
 
 ### users.getById
-GET http://localhost:8080/users.getById?id=2
+GET http://localhost:8080/users.getById?id=1
 X-login: vasya
 X-password: secret
 
