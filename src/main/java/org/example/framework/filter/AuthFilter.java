@@ -7,27 +7,31 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.example.framework.attribute.RequestAttributes;
 import org.example.framework.security.Authentication;
+
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @WebFilter("/*")
+// Filter
 @Slf4j
 public class AuthFilter extends HttpFilter {
     private final Map<String, String> users = Map.of(
-            "vasya", "secret",
-            "petya", "secret"
+            "vasya", "secret"
     );
 
+    // log - logger
     @Override
-    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        String login = req.getHeader("X-login");
-        String password = req.getHeader("X-password");
-        log.debug("login:{}, password:{}", login, password);
+    protected void doFilter(final HttpServletRequest req, final HttpServletResponse res, final FilterChain chain) throws IOException, ServletException {
 
+        final String login = req.getHeader("X-Login");
+        final String password = req.getHeader("X-Password");
+
+        log.debug("login: {}, password: {}", login, password);
+
+        // ifn + Tab
         if (login == null) {
             res.setStatus(401);
             res.getWriter().write("Not authenticated");
@@ -45,9 +49,10 @@ public class AuthFilter extends HttpFilter {
             res.getWriter().write("Not authenticated");
             return;
         }
-        Authentication authentication = new Authentication(login);
-        req.setAttribute(RequestAttributes.AUTHEN_ATTR, authentication);
+
+        final Authentication authentication = new Authentication(login);
+        req.setAttribute("Authentication", authentication);
+
         chain.doFilter(req, res);
     }
-
 }

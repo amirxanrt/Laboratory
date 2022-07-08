@@ -5,16 +5,16 @@ X-login: vasya
 X-password: secret
 
 ### users.getById
-GET http://localhost:8080/users.getById?id=1
+GET http://localhost:8080/users.getById?id=2
 X-login: vasya
 X-password: secret
 
-###
-GET http://localhost:8080/users.create?name=Amir
+### users.create
+GET http://localhost:8080/users.create?login=sasha&password=password
 X-login: vasya
 X-password: secret
 
-###
-GET http://localhost:8080/users.deleteById?id=1
+### users.delete
+GET http://localhost:8080/users.deleteById?id=2
 X-login: vasya
 X-password: secret
