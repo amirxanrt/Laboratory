@@ -22,12 +22,20 @@ Content-Type: application/json
 }
 
 ### users.update
-PUT http://localhost:8080/users/id!=0
+PUT http://localhost:8080/users/
 X-login: vasya
 X-password: secret
+Content-Type: application/json
+
+{
+  "id": 5,
+  "login": "vanya",
+  "password": "password"
+}
+
 
 ### users.delete
-DELETE http://localhost:8080/users/{id}
+DELETE http://localhost:8080/users/2
 X-login: vasya
 X-password: secret
 

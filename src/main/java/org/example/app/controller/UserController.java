@@ -38,9 +38,12 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public UserResponseDTO deleteById(@PathVariable final long id)  {
-        final UserResponseDTO responseDTO = manager.deleteById(id);
-        return responseDTO;
+    public void deleteById(@RequestAttribute final Authentication authentication, @PathVariable final long id, final HttpServletRequest req, HttpServletResponse res) {
+        manager.deleteById(id);
+    }
+    @PutMapping("/users")
+    public UserResponseDTO update(@RequestAttribute final Authentication authentication, @RequestBody final UserRequestDTO requestDTO)  {
+        return manager.update(requestDTO);
     }
 
 }

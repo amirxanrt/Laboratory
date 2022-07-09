@@ -38,7 +38,8 @@ public class UserManager {
             return jdbcOperations.queryForObject(
                     // language=PostgreSQL
                     """
-                SELECT id, login FROM users WHERE id = :id
+                SELECT id, login FROM users
+                WHERE id = :id
                 """,
                     Map.of("id", id),
                     rowMapper
@@ -67,7 +68,7 @@ public class UserManager {
                 // language=PostgreSQL
                 """
                 INSERT INTO users(login, password)
-                VALUES (:login, :password) 
+                VALUES (:login, :password)
                 RETURNING id, login
                 """,
                 Map.of(
@@ -78,18 +79,27 @@ public class UserManager {
         );
     }
 
-    public UserRequestDTO deleteById(final long id) {
-        try {
-            jdbcOperations.queryForObject(
+    public void deleteById(final long id) {
+        jdbcOperations.update(
                 // language=PostgreSQL
                 """
-                DELETE FROM users WHERE id = :id
-                """,
-                Map.of("id", id),
-                rowMapper
-            );
-        } catch (DataIntegrityViolationException e) {
-            throw new UserNotFoundException();
-        }
+                        DELETE FROM users
+                        WHERE id = :id
+                        """,
+                Map.of("id", id)
+        );
     }
+    public UserResponseDTO update(UserRequestDTO requestDTO) {
+        return jdbcOperations.queryForObject(
+                // language=PostgreSQL
+                """
+                        UPDATE users
+                        SET login = :login, password = :password WHERE id = :id
+                        RETURNING id, login
+                        """,
+                Map.of("login", requestDTO.getLogin(), "password", requestDTO.getPassword(), "id", requestDTO.getId()),
+                rowMapper
+        );
+    }
+
 }
