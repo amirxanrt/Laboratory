@@ -51,7 +51,7 @@ public class AuthFilter extends HttpFilter {
         }
 
         final Authentication authentication = new Authentication(login);
-        req.setAttribute("Authentication", authentication);
+        req.setAttribute("authentication", authentication);
 
         chain.doFilter(req, res);
     }
